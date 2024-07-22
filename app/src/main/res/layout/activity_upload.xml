@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="uploadViewModel"
+            type="com.example.todoapp.viewmodel.UploadViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:padding="20dp"
+                android:background="@drawable/primary_border">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Image"
+                    android:textColor="@color/text_primary"
+                    android:textAlignment="center"
+                    android:textSize="30sp"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/uploadimg"
+                    android:id="@+id/imgUpload"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{uploadViewModel.task.image}"
+                    android:contentDescription="image upload" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edtTopic"
+                    android:background="@drawable/primary_border"
+                    android:padding="16dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Enter topic name"
+                    android:text="@={uploadViewModel.task.title}"
+                    android:gravity="start|center_horizontal"
+                    android:textColor="@color/text_primary"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edtDescription"
+                    android:background="@drawable/primary_border"
+                    android:padding="16dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Enter description"
+                    android:text="@={uploadViewModel.task.description}"
+                    android:gravity="start|center_horizontal"
+                    android:textColor="@color/text_primary"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edtLang"
+                    android:background="@drawable/primary_border"
+                    android:padding="16dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Enter lang"
+                    android:text="@={uploadViewModel.task.lang}"
+                    android:gravity="start|center_horizontal"
+                    android:textColor="@color/text_primary"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:id="@+id/btnSave"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    app:cornerRadius="20dp"
+                    android:onClick="@{() -> uploadViewModel.saveData()}"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+</layout>

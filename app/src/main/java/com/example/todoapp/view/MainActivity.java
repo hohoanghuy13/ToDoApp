@@ -1,5 +1,6 @@
 package com.example.todoapp.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -13,6 +14,8 @@ import com.example.todoapp.viewmodel.MainViewModel;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding mainBinding;
+    AlertDialog dialog;
+    //OnClickItemTask
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +32,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intentUploadData = new Intent(getApplication(), UploadActivity.class);
             startActivity(intentUploadData);
         });
+    }
+
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_layout);
+        dialog = builder.create();
+        dialog.show();
     }
 }

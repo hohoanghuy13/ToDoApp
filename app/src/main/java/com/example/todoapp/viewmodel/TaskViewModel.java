@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel;
 import com.example.todoapp.model.Task;
 
 public class TaskViewModel extends ViewModel {
-    public MutableLiveData<Task> taskMutableLiveData;
+    public MutableLiveData<Task> taskMutableLiveData = new MutableLiveData<>();
     public Task task;
 
-    public TaskViewModel() {
-        this.taskMutableLiveData = new MutableLiveData<>();
-        task = new Task();
+    public TaskViewModel(Task taskData) {
+        this.task = taskData;
         taskMutableLiveData.setValue(task);
     }
 

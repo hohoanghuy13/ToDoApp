@@ -16,42 +16,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewModel extends ViewModel {
-    public MutableLiveData<List<Task>> tasksLiveData;
+    public MutableLiveData<List<Task>> tasksLiveData = new MutableLiveData<>();
     public List<Task> tasks;
+    public MutableLiveData<Boolean> stateDialog = new MutableLiveData<>();
+    ValueEventListener valueEventListener;
 
     public MainViewModel() {
-        this.tasksLiveData = new MutableLiveData<>();
         tasks = new ArrayList<>();
-        tasksLiveData.setValue(tasks);
+
+        retrieveData();
+    }
+
+    public LiveData<Boolean> getStateDialog() {
+        return stateDialog;
     }
 
     public LiveData<List<Task>> getTasksLiveData() {
         return tasksLiveData;
     }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-        tasksLiveData.setValue(tasks);
-    }
     public void retrieveData() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
-        ValueEventListener valueEventListener;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorial");
+
+        stateDialog.setValue(true);
+        //dk if
 
         valueEventListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tasks.clear();
+                List<Task> newTasks = new ArrayList<>();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Task task = itemSnapshot.getValue(Task.class);
-                    tasks.add(task);
+                    newTasks.add(task);
                 }
-                //adapter.notifyChanged
-                //dialog.dismiss
+
+                if(!tasks.equals(newTasks)) {
+                    tasks.clear();
+                    tasks.addAll(newTasks);
+                    tasksLiveData.setValue(tasks);
+                }
+
+                stateDialog.setValue(false);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //dialog.dismiss
+                stateDialog.setValue(false);
             }
         });
     }

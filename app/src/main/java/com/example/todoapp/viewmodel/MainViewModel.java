@@ -38,7 +38,10 @@ public class MainViewModel extends ViewModel {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorial");
 
         stateDialog.setValue(true);
-        //dk if
+
+        if(valueEventListener != null) {
+            reference.removeEventListener(valueEventListener);
+        }
 
         valueEventListener = reference.addValueEventListener(new ValueEventListener() {
             @Override

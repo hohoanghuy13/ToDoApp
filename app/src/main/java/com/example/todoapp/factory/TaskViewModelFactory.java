@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todoapp.model.Task;
+import com.example.todoapp.viewmodel.DetailViewModel;
 import com.example.todoapp.viewmodel.TaskViewModel;
 
 public class TaskViewModelFactory implements ViewModelProvider.Factory {
@@ -19,6 +20,8 @@ public class TaskViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass.isAssignableFrom(TaskViewModel.class)) {
             return (T) new TaskViewModel(task);
+        } else if (modelClass.isAssignableFrom(DetailViewModel.class)) {
+            return (T) new DetailViewModel(task);
         }
         throw new IllegalArgumentException("Unknown ViewModel Class");
     }
